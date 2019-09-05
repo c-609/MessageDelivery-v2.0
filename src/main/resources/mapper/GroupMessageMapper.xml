@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.GroupMessageMapper">
+
+    <resultMap id="MessageMap" type="cn.tiger.entity.MessageEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sender_id" jdbcType="INTEGER" property="senderId"/>
+        <result column="sender_name" jdbcType="VARCHAR" property="senderName"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="read_num" jdbcType="INTEGER" property="readNum"/>
+        <result column="dept_role_id" jdbcType="INTEGER" property="deptRoleId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <association property="identity" javaType="cn.tiger.entity.IdentityEntity">
+            <result column="dept_role_id" jdbcType="INTEGER" property="deptRoleId"/>
+            <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+            <result column="role_cn_name" jdbcType="VARCHAR" property="roleCNName"/>
+        </association>
+    </resultMap>
+
+    <insert id="sendMsgToGroup">
+        INSERT INTO t_message_group(message_id,group_id)
+        VALUES
+        <foreach collection="groupIds" item="groupId" separator=",">
+            (#{messageId},#{groupId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteMsgInGroup">
+        DELETE FROM t_message_group WHERE group_id = #{groupId} and
+        message_id IN
+        <foreach collection="messageIds" item="messageId" open="(" close=")" separator=",">
+            #{messageId}
+        </foreach>
+    </delete>
+
+    <select id="findMessageByGroupId" resultMap="MessageMap">
+        SELECT
+            t_message.*,
+            sys_role.name as role_cn_name,
+            t_dept.name as dept_name
+         FROM
+            t_message,
+            t_dept,
+            sys_role,
+            t_dept_role,
+            t_message_group
+        WHERE
+            t_dept.id = t_dept_role.dept_id and
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.id = t_message.dept_role_id and
+            t_message_group.message_id = t_message.id and
+            t_message_group.group_id = #{groupId}
+        ORDER BY t_message.id DESC
+    </select>
+
+</mapper>

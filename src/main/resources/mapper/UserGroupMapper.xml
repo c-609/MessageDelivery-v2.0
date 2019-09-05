@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.UserGroupMapper">
+
+    <resultMap id="UserInfoMap" type="cn.tiger.entity.UserInfoEntity">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+    </resultMap>
+
+    <insert id="addUserToGroup">
+        INSERT INTO t_user_group(user_id,group_id)
+        VALUES
+        <foreach collection="userIds" item="userId" separator=",">
+            (#{userId},#{groupId})
+        </foreach>
+    </insert>
+
+    <delete id="removeUser">
+        DELETE FROM t_user_group WHERE group_id = #{groupId} and
+        user_id IN
+        <foreach collection="userIds" item="userId"  open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <select id="findUserByGroupId" resultMap="UserInfoMap">
+        SELECT t_user_info.*
+        FROM
+            t_user_info,
+            t_user_group
+        WHERE
+            t_user_info.user_id = t_user_group.user_id and
+            t_user_group.group_id = #{groupId}
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.MenuRoleMapper">
+
+    <insert id="addAuthorizationForRole" >
+        INSERT INTO sys_menu_role(role_id,menu_id)
+        VALUES
+        <foreach collection="menuIds" item="menuId" separator=",">
+            (#{roleId},#{menuId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAuthorizationById">
+        DELETE FROM sys_menu_role WHERE role_id = #{roleId}
+    </delete>
+</mapper>

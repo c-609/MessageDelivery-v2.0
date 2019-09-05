@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.UserDeptRoleMapper">
+
+    <resultMap id="IdentityMap" type="cn.tiger.entity.IdentityEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="identity_id" jdbcType="INTEGER" property="deptRoleId"/>
+        <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="role_cn_name" jdbcType="VARCHAR" property="roleCNName"/>
+    </resultMap>
+
+    <insert id="addIdentityForUser">
+        INSERT INTO t_user_dept_role (user_id,dept_role_id)
+        VALUE (#{userId},#{identityId})
+    </insert>
+
+    <delete id="deleteIdentityById">
+    DELETE FROM t_user_dept_role WHERE id = #{id}
+    </delete>
+
+    <update id="updateIdentity">
+    UPDATE t_user_dept_role
+    SET dept_role_id = #{identityId}
+    WHERE id = #{id}
+    </update>
+
+    <select id="findIdentityByUserId" resultMap="IdentityMap">
+        SELECT
+            t_user_dept_role.id,
+            t_dept_role.id as identity_id,
+            t_dept.id as dept_id,
+            t_dept.name as dept_name,
+            sys_role.id as role_id,
+            sys_role.role_name,
+            sys_role.name as role_cn_name
+        FROM
+            t_user_dept_role,
+            t_dept_role,
+            t_dept,
+            sys_role
+        WHERE
+            t_dept.id = t_dept_role.dept_id and
+            t_dept_role.role_id = sys_role.id and
+            t_dept_role.id = t_user_dept_role.dept_role_id and
+            t_user_dept_role.user_id = #{userId}
+    </select>
+</mapper>

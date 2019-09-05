@@ -1,0 +1,23 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: MessageDelivery-v2.0
+  datasource:
+    url: jdbc:mysql://47.106.199.167:3306/itc_sys2?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: Ab123$%^
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: cn.tiger.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰命名,l_name -> lName
+    jdbc-type-for-null: NULL
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+    cache-enabled: true #开启二级缓存
+    call-setters-on-nulls: true #map空列不显示问题
+

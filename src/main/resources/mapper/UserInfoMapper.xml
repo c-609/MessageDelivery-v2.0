@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.UserInfoMapper">
+    <resultMap id="UserInfoMap" type="cn.tiger.entity.UserInfoEntity">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="gender" jdbcType="INTEGER" property="gender"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <collection property="identityEntities" ofType="cn.tiger.entity.IdentityEntity">
+            <id column="udr_id" jdbcType="INTEGER" property="id"/>
+            <result column="identity_id" jdbcType="INTEGER" property="deptRoleId"/>
+            <result column="dept_id" jdbcType="INTEGER" property="deptId"/>
+            <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+            <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+            <result column="role_cn_name" jdbcType="VARCHAR" property="roleCNName"/>
+        </collection>
+    </resultMap>
+
+    <delete id="deleteUserById">
+        DELETE FROM t_user_info WHERE user_id = #{id}
+    </delete>
+
+    <update id="updateUser">
+        UPDATE t_user_info
+        <set>
+            <if test="name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone != '' ">
+                phone = #{phone},
+            </if>
+            <if test="gender != null and gender != '' ">
+                gender = #{gender},
+            </if>
+            <if test="age != null and age != '' ">
+                age = #{age},
+            </if>
+            <if test="email != null and email != '' ">
+                email = #{email},
+            </if>
+        </set>
+        WHERE user_id = #{userId}
+    </update>
+
+    <select id="findUserInfoById" resultMap="UserInfoMap">
+        SELECT
+            t_user_info.*,
+            t_user_dept_role.id as udr_id,
+            t_dept_role.id as identity_id,
+            sys_role.id as role_id,sys_role.name as role_cn_name,
+            t_dept.id as dept_id,t_dept.name as dept_name
+        FROM
+            t_user_info,
+            sys_role,
+            t_dept,
+            t_dept_role,
+            t_user_dept_role
+        WHERE
+            t_user_info.user_id = t_user_dept_role.user_id and
+            t_user_dept_role.dept_role_id = t_dept_role.id and
+            t_dept_role.dept_id = t_dept.id and
+            t_dept_role.role_id = sys_role.id and
+            t_user_info.user_id = #{id}
+    </select>
+
+    <select id="findUserInfoByName" resultMap="UserInfoMap">
+        SELECT
+            t_user_info.*,
+            t_user_dept_role.id as udr_id,
+            t_dept_role.id as identity_id,
+            sys_role.id as role_id,sys_role.name as role_cn_name,
+            t_dept.id as dept_id,t_dept.name as dept_name
+        FROM
+            t_user_info,
+            sys_role,
+            t_dept,
+            t_dept_role,
+            t_user_dept_role
+        WHERE
+            t_user_info.user_id = t_user_dept_role.user_id and
+            t_user_dept_role.dept_role_id = t_dept_role.id and
+            t_dept_role.dept_id = t_dept.id and
+            t_dept_role.role_id = sys_role.id and
+            t_user_info.name LIKE "%${name}%"
+    </select>
+
+    <select id="findAll" resultMap="UserInfoMap">
+        SELECT
+            t_user_info.*,
+            t_user_dept_role.id as udr_id,
+            t_dept_role.id as identity_id,
+            sys_role.id as role_id,sys_role.name as role_cn_name,
+            t_dept.id as dept_id,t_dept.name as dept_name
+        FROM
+            t_user_info,
+            sys_role,
+            t_dept,
+            t_dept_role,
+            t_user_dept_role
+        WHERE
+            t_user_info.user_id = t_user_dept_role.user_id and
+            t_user_dept_role.dept_role_id = t_dept_role.id and
+            t_dept_role.dept_id = t_dept.id and
+            t_dept_role.role_id = sys_role.id
+    </select>
+
+    <select id="findUserByDeptId" resultMap="UserInfoMap">
+        SELECT
+            t_user_info.*,
+            t_user_dept_role.id as udr_id,
+            t_dept_role.id as identity_id,
+            sys_role.id as role_id,sys_role.name as role_cn_name,
+            t_dept.id as dept_id,t_dept.name as dept_name
+        FROM
+            t_user_info,
+            sys_role,
+            t_dept,
+            t_dept_role,
+            t_user_dept_role
+        WHERE
+            t_user_info.user_id = t_user_dept_role.user_id and
+            t_user_dept_role.dept_role_id = t_dept_role.id and
+            t_dept_role.dept_id = t_dept.id and
+            t_dept_role.role_id = sys_role.id and
+            t_dept.id = #{deptId}
+    </select>
+</mapper>

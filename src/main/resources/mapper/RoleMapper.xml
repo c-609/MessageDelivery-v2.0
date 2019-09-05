@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.RoleMapper">
+
+    <resultMap id="RoleMap" type="cn.tiger.entity.RoleEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <insert id="addRole" parameterType="cn.tiger.entity.RoleEntity" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role(role_name,name,operator_id)
+        VALUE (#{roleName},#{name},#{operatorId})
+    </insert>
+
+    <delete id="deleteRoleById">
+        DELETE FROM sys_role WHERE id = #{id}
+    </delete>
+
+    <update id="updateRole">
+        UPDATE sys_role
+        <set>
+            <if test="roleName != null and roleName != '' ">
+                role_name = #{roleName},
+            </if>
+            <if test="name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test="status != null and status != '' ">
+                status = #{status},
+            </if>
+            <if test="operatorId != null and operatorId != '' ">
+                operator_id = #{operatorId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="findAll" resultMap="RoleMap">
+        SELECT * FROM sys_role
+    </select>
+
+    <select id="findRoleByUserId" resultMap="RoleMap">
+        SELECT sys_role.*
+        FROM
+          sys_role,
+            t_user_dept_role,
+            t_dept_role
+        WHERE
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.id = t_user_dept_role.dept_role_id and
+            t_user_dept_role.user_id = #{userId}
+    </select>
+
+    <select id="findRoleByDeptId" resultMap="RoleMap">
+        SELECT sys_role.*
+        FROM
+          sys_role,
+          t_dept_role
+        WHERE
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.dept_id = #{deptId}
+    </select>
+</mapper>
