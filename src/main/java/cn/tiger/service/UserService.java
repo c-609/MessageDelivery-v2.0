@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
     @Autowired
     private UserInfoMapper userInfoMapper;
+
     public UserInfoEntity getIdByUserInfo(Integer id) {
         return userInfoMapper.findUserInfoById(id);
     }

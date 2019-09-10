@@ -11,7 +11,7 @@ public class UserServiceTest extends MessageDeliveryApplicationTest {
 	
     @Test
     public void getIdByUserInfo() {
-        UserInfoEntity userInfoEntity = userService.getIdByUserInfo(1);
+        UserInfoEntity userInfoEntity = userService.getIdByUserInfo(2);
         System.out.println(userInfoEntity);
     }
 }
