@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface GroupMapper {
-    //创建组
+    //创建组,返回创建的组id
     int addGroup(GroupEntity groupEntity);
 
     //删除组

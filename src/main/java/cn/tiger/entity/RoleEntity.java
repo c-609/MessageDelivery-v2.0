@@ -1,8 +1,11 @@
 package cn.tiger.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import javax.management.relation.Role;
 import java.util.Date;
 
 /**
@@ -10,7 +13,8 @@ import java.util.Date;
  */
 @Data
 @JsonInclude(value= JsonInclude.Include.NON_NULL)
-public class RoleEntity {
+@TableName("sys_role")
+public class RoleEntity extends Model<RoleEntity> {
     private Integer id; //角色id
     private String roleName; //角色名 ROLE_
     private String name; // 中文名

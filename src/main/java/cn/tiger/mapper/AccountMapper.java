@@ -1,6 +1,7 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.AccountEntity;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
