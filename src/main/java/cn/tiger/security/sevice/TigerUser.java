@@ -19,7 +19,7 @@ public class TigerUser extends User {
      */
     @Getter
     private Integer id;
-
+    @Getter
     private List<IdentityEntity> identityEntityList;
 
     /**
@@ -27,6 +27,7 @@ public class TigerUser extends User {
      * {@link org.springframework.security.authentication.dao.DaoAuthenticationProvider}.
      *
      * @param id 用户id
+     * @param identityEntityList 用户对应的部门角色关系
      * @param username the username presented to the
      * <code>DaoAuthenticationProvider</code>
      * @param password the password that should be presented to the

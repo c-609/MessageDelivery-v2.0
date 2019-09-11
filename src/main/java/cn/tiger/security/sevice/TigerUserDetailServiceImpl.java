@@ -44,11 +44,11 @@ public class TigerUserDetailServiceImpl implements UserDetailsService {
      */
     private UserDetails getUserDetails(UserInfoEntity userInfo, AccountEntity accountEntity) {
         List<IdentityEntity> identityEntityList = userInfo.getIdentityEntities();
-        List<Integer> roleList = new ArrayList<>(identityEntityList.size());
-        identityEntityList.forEach(identity -> {roleList.add(identity.getRoleId());});
+        List<String> roleList = new ArrayList<>(identityEntityList.size());
+        identityEntityList.forEach(identity -> {roleList.add(identity.getRoleId().toString());});
         // 此处放入roleIds，参照pig,在SecurityUtils中取出
         Collection<? extends GrantedAuthority> authorities
-                = AuthorityUtils.createAuthorityList((String[])roleList.toArray());
+                = AuthorityUtils.createAuthorityList(roleList.toArray(new String[0]));
 
         // 构造security用户
         return new TigerUser(userInfo.getUserId(), identityEntityList, accountEntity.getUserName(), accountEntity.getPassword(),

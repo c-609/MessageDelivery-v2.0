@@ -1,5 +1,6 @@
 package cn.tiger.service;
 
+import cn.tiger.entity.GroupEntity;
 import cn.tiger.mapper.UserGroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,4 +22,6 @@ public class UserGroupService {
         }
         return userGroupMapper.addUserToGroup(groupId, userIds);
     }
+
+//    public GroupEntity
 }

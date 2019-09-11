@@ -19,7 +19,7 @@ public class GroupService {
     private UserGroupService userGroupService;
 
     /**
-     * TODO 此处需跟前端商讨，邀请对象多的问题
+     * TODO 暫時使用发送用户id的方式，优化点
      * @param groupEntity
      * @param createUid
      * @param uids

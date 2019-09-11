@@ -1,9 +1,11 @@
 package cn.tiger.vo;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.tiger.dto.TreeNode;
 import lombok.experimental.UtilityClass;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -83,6 +85,44 @@ public class TreeUtil {
         return list;
     }
 
+    /**
+     * 递归查找部门树节点
+     * @param treeList 树节点列表
+     * @param completeTree 需要查找的树
+     * @return 不包含上下级关系的节点id列表
+     * 如下面的树，输入1, 5, 3， 4, 会输出1,3,4,即没有上下级关系的节点列表
+     *      -1
+     *    1    2
+     *    5   3 4
+     */
+    public <T extends TreeNode> List<T> findTreeNodeOrNonSuperordinateRelationship(List<T> treeList, List<T> completeTree) {
+        List<T> result = new ArrayList<>();
+        if (completeTree == null) {
+            return null;
+        }
+        for (T it : completeTree) {
+            if (contrast(treeList, it.getId())) {
+                result.add(it);
+                continue;
+            }
+            if (it.getChildren() != null) {
+                List<T> childrenList = new ArrayList<>(it.getChildren().size());
+                it.getChildren().forEach(item -> childrenList.add((T)item));
+                result.addAll(findTreeNodeOrNonSuperordinateRelationship(treeList, childrenList));
+            }
+        }
+        return result;
+    }
+
+    public <T extends TreeNode> boolean contrast(List<T> treeIds, Integer it) {
+        for (T node : treeIds) {
+            if (it.intValue() == node.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         TreeNode treeNode1 = new TreeNode();
         TreeNode treeNode2 = new TreeNode();
@@ -115,6 +155,13 @@ public class TreeUtil {
 
         System.out.println("递归查找子节点（有根）" + childrens);
         System.out.println("叶子节点（无根）" + leafNodes);
+
+        System.out.println("---------测试包含关系");
+
+
+        System.out.println(findTreeNodeOrNonSuperordinateRelationship(Arrays.asList(treeNode5, treeNode3, treeNode4), tree));
+
+
     }
 
     /**

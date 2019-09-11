@@ -15,6 +15,9 @@ public class UserService {
     private UserInfoMapper userInfoMapper;
 
     public UserInfoEntity getIdByUserInfo(Integer id) {
+        if (id == null) {
+            return null;
+        }
         return userInfoMapper.findUserInfoById(id);
     }
 }

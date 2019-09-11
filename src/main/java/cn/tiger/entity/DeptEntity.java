@@ -1,6 +1,7 @@
 package cn.tiger.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;

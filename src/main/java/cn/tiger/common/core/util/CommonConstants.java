@@ -52,6 +52,10 @@ public interface CommonConstants {
          * 失败标记
          */
         Integer FAIL = 1;
+        /**
+         * 参数错误
+         */
+        Integer PARAMETER_ERROR = 1;
 
 
         /**
