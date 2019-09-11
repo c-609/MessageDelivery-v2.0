@@ -1,5 +1,6 @@
 package cn.tiger.mapper;
 
+import cn.tiger.entity.MessageEntity;
 import cn.tiger.entity.UserInfoEntity;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,10 @@ public interface SendMessageMapper {
     List<UserInfoEntity> findNotReadUserByMsgId(@Param("messageId") Integer messageId);
     //查看已读消息的用户
     List<UserInfoEntity> findReadUserByMsgId(@Param("messageId") Integer messageId);
+
+    //通过用户id查找未读消息
+    List<MessageEntity> findNotReadMessageByUserId(@Param("userId") Integer userId);
+
+    //通过用户id查找已读消息
+    List<MessageEntity> findMessageByUserId(@Param("userId") Integer userId);
 }

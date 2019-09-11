@@ -1,5 +1,6 @@
 package cn.tiger.mybatis_test;
 
+import cn.tiger.entity.MessageEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.SendMessageMapper;
 import org.junit.Test;
@@ -47,6 +48,18 @@ public class SendMessageMapperTest extends BaseMapperTest<SendMessageMapper>{
     @Test
     public void findReadUserByMsgIdTest(){
         List<UserInfoEntity> list = super.getMapper().findReadUserByMsgId(1);
+        System.out.println(list);
+    }
+
+    @Test
+    public void findNotReadMessageByUserIdTest(){
+        List<MessageEntity> list = super.getMapper().findNotReadMessageByUserId(2);
+        System.out.println(list);
+    }
+
+    @Test
+    public void findMessageByUserIdTest(){
+        List<MessageEntity> list = super.getMapper().findMessageByUserId(10);
         System.out.println(list);
     }
 }

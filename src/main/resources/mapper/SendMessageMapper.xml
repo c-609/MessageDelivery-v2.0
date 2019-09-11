@@ -13,6 +13,25 @@
         <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
 
+    <resultMap id="MessageMap" type="cn.tiger.entity.MessageEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sender_id" jdbcType="INTEGER" property="senderId"/>
+        <result column="sender_name" jdbcType="VARCHAR" property="senderName"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="time" jdbcType="TIMESTAMP" property="time"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="read_num" jdbcType="INTEGER" property="readNum"/>
+        <result column="dept_role_id" jdbcType="INTEGER" property="deptRoleId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <association property="identity" javaType="cn.tiger.entity.IdentityEntity">
+            <!--           <id column="dept_role_id" jdbcType="INTEGER" property="deptRoleId"/>-->
+            <result column="dept_role_id" jdbcType="INTEGER" property="deptRoleId"/>
+            <result column="dept_name" jdbcType="VARCHAR" property="deptName"/>
+            <result column="role_cn_name" jdbcType="VARCHAR" property="roleCNName"/>
+        </association>
+    </resultMap>
+
     <insert id="sendMessage">
         INSERT INTO t_message_user(message_id,getter_id)
        VALUES
@@ -56,5 +75,47 @@
             t_message_user.getter_id = t_user_info.user_id and
             t_message_user.status = 1 and
             t_message_user.message_id = #{messageId}
+    </select>
+
+    <select id="findNotReadMessageByUserId" resultMap="MessageMap">
+        SELECT
+            t_message.*,
+            sys_role.name as role_cn_name,
+            t_dept.name as dept_name
+         FROM
+            t_message,
+            t_dept,
+            sys_role,
+            t_dept_role,
+						t_message_user
+        WHERE
+            t_dept.id = t_dept_role.dept_id and
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.id = t_message.dept_role_id and
+						t_message.id = t_message_user.message_id and
+						t_message_user.status = 0 and
+						t_message_user.getter_id = #{userId}
+        ORDER BY t_message.id DESC
+    </select>
+
+    <select id="findMessageByUserId" resultMap="MessageMap">
+        SELECT
+            t_message.*,
+            sys_role.name as role_cn_name,
+            t_dept.name as dept_name
+         FROM
+            t_message,
+            t_dept,
+            sys_role,
+            t_dept_role,
+						t_message_user
+        WHERE
+            t_dept.id = t_dept_role.dept_id and
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.id = t_message.dept_role_id and
+						t_message.id = t_message_user.message_id and
+						t_message_user.status = 1 and
+						t_message_user.getter_id = #{userId}
+        ORDER BY t_message.id DESC
     </select>
 </mapper>

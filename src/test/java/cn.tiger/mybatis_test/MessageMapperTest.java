@@ -33,6 +33,12 @@ public class MessageMapperTest extends BaseMapperTest<MessageMapper>{
        System.out.println(i);
    }
 
+   @Test
+   public void updateMessageReadNumTest(){
+        int i = super.getMapper().updateMessageReadNum(1);
+       System.out.println(i);
+   }
+
     @Test
     public void findMessageBySenderIdTest(){
         List<MessageEntity> list = super.getMapper().findMessageBySenderId(2);
