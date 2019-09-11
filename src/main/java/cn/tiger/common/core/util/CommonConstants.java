@@ -86,7 +86,7 @@ public interface CommonConstants {
         /**
          * 用户消息状态 删除
          */
-        Integer USER_MESSAGE_STATUS_DEL = -1;
+        Integer USER_MESSAGE_STATUS_DEL = 2;
 
         /**
          * 消息状态 正常

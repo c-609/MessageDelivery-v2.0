@@ -1,5 +1,6 @@
 package cn.tiger.service;
 
+import cn.tiger.common.core.util.CommonConstants;
 import cn.tiger.entity.GroupEntity;
 import cn.tiger.mapper.UserGroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,17 @@ public class UserGroupService {
 
     @Transactional(rollbackFor = Exception.class)
     public int addUserToGroup(int groupId, Integer[] userIds){
+        return userGroupMapper.addUserToGroup(groupId, userIds);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteUserToGroup(int groupId, Integer[] userIds) {
         if (userIds == null ||userIds.length <= 0 || groupId == 0) {
             return 0;
         }
-        return userGroupMapper.addUserToGroup(groupId, userIds);
+        return userGroupMapper.removeUser(groupId, userIds);
     }
+
 
 //    public GroupEntity
 }

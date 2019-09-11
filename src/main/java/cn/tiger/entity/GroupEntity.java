@@ -15,6 +15,6 @@ public class GroupEntity {
     private String name; //群组名称
     @NotNull
     private Integer createUserId; //创建者id
-    @NotNull
+
     private Date createTime; //创建时间
 }

@@ -30,9 +30,16 @@ public class GroupService {
         groupEntity.setCreateTime(new Date());
         int groupId = groupMapper.addGroup(groupEntity); // 返回刚刚创建的组id
         if (groupId <= 0) {
-            return Boolean.TRUE;
+            return Boolean.FALSE;
         }
-        int row = userGroupService.addUserToGroup(groupId, uids);
+        if (uids != null && uids.length > 0){
+            userGroupService.addUserToGroup(groupId, uids);
+        }
+        return Boolean.TRUE;
+    }
+
+    public boolean delete(Integer groupId) {
+//        userGroupService
         return Boolean.TRUE;
     }
 
