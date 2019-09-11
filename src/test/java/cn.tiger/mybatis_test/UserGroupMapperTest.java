@@ -1,5 +1,6 @@
 package cn.tiger.mybatis_test;
 
+import cn.tiger.entity.GroupEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.UserGroupMapper;
 import org.junit.Test;
@@ -31,6 +32,12 @@ public class UserGroupMapperTest extends BaseMapperTest<UserGroupMapper>{
     @Test
     public void findUserByGroupIdTest(){
         List<UserInfoEntity> list = super.getMapper().findUserByGroupId(1);
+        System.out.println(list);
+    }
+
+    @Test
+    public void findGroupByUserIdTest(){
+        List<GroupEntity> list = super.getMapper().findGroupByUserId(2);
         System.out.println(list);
     }
 }

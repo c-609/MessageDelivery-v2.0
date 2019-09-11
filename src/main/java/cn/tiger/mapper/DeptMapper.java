@@ -21,4 +21,7 @@ public interface DeptMapper {
     //通过部门名称查部门(模糊查)
     List<DeptEntity> findDeptByName(@Param("name") String name);
 
+    //通过部门id获取下一层子部门
+    List<DeptEntity> findDeptByDeptParentId(@Param("parentId") Integer parentId);
+
 }

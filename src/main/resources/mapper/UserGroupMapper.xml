@@ -12,6 +12,12 @@
         <result column="age" jdbcType="INTEGER" property="age"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
     </resultMap>
+    <resultMap id="GroupMap" type="cn.tiger.entity.GroupEntity">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="create_user_id" jdbcType="INTEGER" property="createUserId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
 
     <insert id="addUserToGroup">
         INSERT INTO t_user_group(user_id,group_id)
@@ -37,6 +43,16 @@
         WHERE
             t_user_info.user_id = t_user_group.user_id and
             t_user_group.group_id = #{groupId}
+    </select>
+
+    <select id="findGroupByUserId" resultMap="GroupMap">
+        SELECT t_group.*
+        FROM
+            t_group,
+            t_user_group
+        WHERE
+            t_group.id = t_user_group.group_id and
+            t_user_group.user_id = #{userId}
     </select>
 
 </mapper>

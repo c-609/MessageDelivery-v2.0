@@ -19,4 +19,5 @@ public interface GroupMapper {
 
     //通过创建者id查询所有组
     List<GroupEntity> findGroupByUserId(@Param("userId") Integer userId);
+
 }

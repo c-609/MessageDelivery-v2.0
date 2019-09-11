@@ -61,4 +61,10 @@ public class DeptMapperTest extends BaseMapperTest<DeptMapper>{
         System.out.println(list);
     }
 
+    @Test
+    public void findDeptByDeptParentIdTest(){
+        List<DeptEntity> list = super.getMapper().findDeptByDeptParentId(2);
+        System.out.println(list);
+    }
+
 }

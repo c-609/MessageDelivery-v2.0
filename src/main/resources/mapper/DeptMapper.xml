@@ -53,4 +53,8 @@
     <select id="findDeptByName" resultMap="DeptMap">
         SELECT * FROM t_dept WHERE name LIKE "%${name}%"
     </select>
+
+    <select id="findDeptByDeptParentId" resultMap="DeptMap">
+        SELECT * FROM t_dept WHERE parent_id = #{parentId}
+    </select>
 </mapper>
