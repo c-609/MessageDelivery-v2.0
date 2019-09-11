@@ -52,7 +52,7 @@
             t_dept.id = t_dept_role.dept_id and
             sys_role.id = t_dept_role.role_id and
             t_dept_role.id = t_message.dept_role_id and
-            t_message.sender_id = 2
+            t_message.sender_id = #{senderId}
         ORDER BY t_message.id DESC
     </select>
 
