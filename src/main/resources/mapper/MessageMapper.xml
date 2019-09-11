@@ -32,6 +32,12 @@
         DELETE FROM t_message WHERE id = #{id}
     </delete>
 
+    <update id="updateMessageReadNum">
+        UPDATE t_message
+        SET read_num = read_num + 1
+        WHERE id = #{messageId}
+    </update>
+
     <select id="findMessageBySenderId" resultMap="MessageMap">
          SELECT
             t_message.*,

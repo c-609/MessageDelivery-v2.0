@@ -14,6 +14,9 @@ public interface MessageMapper {
     int deleteMessageById(@Param("id") Integer id);
     //不能修改消息，删除，重发
 
+    //修改消息的读取数
+    int updateMessageReadNum(@Param("messageId") Integer messageId);
+
     //通过发送人的id查看消息
     List<MessageEntity> findMessageBySenderId(@Param("senderId") Integer senderId);
 
