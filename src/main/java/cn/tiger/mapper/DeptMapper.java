@@ -1,13 +1,14 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.DeptEntity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface DeptMapper {
+public interface DeptMapper extends BaseMapper<DeptEntity> {
     //添加部门
     int addDept(DeptEntity dept);
     //通过id删除部门

@@ -59,6 +59,18 @@ public class DeptService {
     }
 
     /**
+     * 获取部门的子部门
+     * @param deptId
+     * @return
+     */
+    public List<DeptEntity> findChilderNode(int deptId) {
+        if (deptId <= 0) {
+            return null;
+        }
+        return deptMapper.findDeptByDeptParentId(deptId);
+    }
+
+    /**
      * 获取用户的部门树列表
      * @param deptEntityList 用户的部门列表
      * @param userId 用户唯一标识

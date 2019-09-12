@@ -1,5 +1,8 @@
 package cn.tiger.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +15,8 @@ import java.util.List;
  */
 @Data
 @JsonInclude(value= JsonInclude.Include.NON_NULL)
-public class DeptEntity {
+@TableName("t_dept")
+public class DeptEntity extends Model<DeptEntity> {
     private Integer id; //id 自增
     private String name; //名称
     private Integer parentId; //父节点id
@@ -20,6 +24,6 @@ public class DeptEntity {
     private Date updateTime; //更新时间
     private Integer operatorId; //操作人员id
     private Date createTime; //创建时间
-
+    @TableField(exist = false)
     private List<RoleEntity> roles; //该部门下的所有角色
 }
