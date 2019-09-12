@@ -23,9 +23,6 @@ public class UserGroupService {
 
     @Transactional(rollbackFor = Exception.class)
     public int deleteUserToGroup(int groupId, Integer[] userIds) {
-        if (userIds == null ||userIds.length <= 0 || groupId == 0) {
-            return 0;
-        }
         return userGroupMapper.removeUser(groupId, userIds);
     }
 
