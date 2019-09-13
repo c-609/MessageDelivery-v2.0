@@ -2,13 +2,14 @@ package cn.tiger.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 消息实体
  */
 @Data
-public class MessageEntity {
+public class MessageEntity implements Serializable {
     private Integer id; //消息id 自增
     private Integer senderId; //发送者id
     private String senderName; //发送者名字
