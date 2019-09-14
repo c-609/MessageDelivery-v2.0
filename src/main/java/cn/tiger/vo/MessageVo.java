@@ -1,15 +1,14 @@
-package cn.tiger.entity;
+package cn.tiger.vo;
 
-import lombok.Data;
+import cn.tiger.entity.IdentityEntity;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * 消息实体
+ * create by yifeng
  */
-@Data
-public class MessageEntity {
+public class MessageVo {
     private Integer id; //消息id 自增
     @NotNull
     private Integer senderId; //发送者id
@@ -22,6 +21,5 @@ public class MessageEntity {
     private int number; //接受的总人数
     private int readNum; //已阅读的人数
     private int status;//消息状态 0：正常 1：逻辑删除
-    private Integer deptRoleId;//部门与对应角色的组合id
     private IdentityEntity identity;
 }
