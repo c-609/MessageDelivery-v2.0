@@ -25,4 +25,17 @@ public class UserDeptRoleService {
         return userDeptRoleMapper.findIdentityByUserId(uid);
     }
 
+    public int findUserDeptRole(Integer deptId, Integer roleId, Integer usreId) {
+        List<IdentityEntity> identityEntityList = findByUid(usreId);
+        if (identityEntityList == null || identityEntityList.size() <= 0) {
+            return 0;
+        }
+        for (IdentityEntity entity : identityEntityList) {
+            if (entity.getDeptId() == deptId && entity.getRoleId() == roleId) {
+                return entity.getId();
+            }
+        }
+        return 0;
+    }
+
 }

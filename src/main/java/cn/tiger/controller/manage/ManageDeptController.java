@@ -6,10 +6,7 @@ import cn.tiger.entity.DeptEntity;
 import cn.tiger.service.DeptService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.invoke.util.Wrapper;
 
 import java.util.List;
 
