@@ -32,4 +32,7 @@ public interface SendMessageMapper {
     //通过接收者id和消息id获取单条消息
     MessageEntity findMessageByGetterIdAndMessageId(@Param("getterId") Integer getterId,@Param("messageId") Integer messageId);
 
+    // 通过接收者id和消息id获取用户消息状态
+    Integer findStatusByMessageUser(@Param("getterId") Integer getterId,@Param("messageId") Integer messageId);
+
 }

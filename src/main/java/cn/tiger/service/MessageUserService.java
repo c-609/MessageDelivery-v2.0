@@ -56,6 +56,15 @@ public class MessageUserService {
         if (messageEntity.getNumber() == messageEntity.getReadNum()) {
             return CommonConstants.FAIL;
         }
+        // 取出用户消息对应的状态
+        Integer status = sendMessageMapper.findStatusByMessageUser(userId, messageId);
+        if (status == null) {
+            return CommonConstants.FAIL;
+        }
+        // 如果已读，则返回成功即可
+        if (status.intValue() == CommonConstants.USER_MESSAGE_STATUS_READER) {
+            return CommonConstants.SUCCESS;
+        }
         // 此处需先把user_message 状态查出来，在更新，更新完后消息才能加一操作
         sendMessageMapper.updateSendMsgStatus(messageId, userId, CommonConstants.USER_MESSAGE_STATUS_READER);
 
@@ -117,6 +126,20 @@ public class MessageUserService {
             return null;
         }
         return sendMessageMapper.findNotReadUserByMsgId(messageId);
+    }
+
+    /**
+     * 是否已读
+     * @param messageId 消息唯一标识
+     * @param getterId 接受者唯一标识
+     * @return
+     */
+    public boolean hasBeenRead(Integer messageId, Integer getterId) {
+        Integer status = sendMessageMapper.findStatusByMessageUser(getterId, messageId);
+        if (status.equals(CommonConstants.USER_MESSAGE_STATUS_READER)) {
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
     }
 
 

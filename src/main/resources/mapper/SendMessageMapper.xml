@@ -138,4 +138,14 @@
 						t_message_user.getter_id = #{getterId} and
 						t_message.id = #{messageId}
     </select>
+
+    <select id="findStatusByMessageUser" resultType="integer" >
+        SELECT
+            STATUS
+        FROM
+            t_message_user
+        WHERE
+            t_message_user.getter_id = #{getterId}
+          AND t_message_user.message_id = #{messageId}
+    </select>
 </mapper>
