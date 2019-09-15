@@ -118,4 +118,24 @@
 						t_message_user.getter_id = #{userId}
         ORDER BY t_message.id DESC
     </select>
+
+    <select id="findMessageByGetterIdAndMessageId" resultMap="MessageMap">
+        SELECT
+            t_message.*,
+            sys_role.name as role_cn_name,
+            t_dept.name as dept_name
+         FROM
+            t_message,
+            t_dept,
+            sys_role,
+            t_dept_role,
+						t_message_user
+        WHERE
+            t_dept.id = t_dept_role.dept_id and
+            sys_role.id = t_dept_role.role_id and
+            t_dept_role.id = t_message.dept_role_id and
+						t_message.id = t_message_user.message_id and
+						t_message_user.getter_id = #{getterId} and
+						t_message.id = #{messageId}
+    </select>
 </mapper>

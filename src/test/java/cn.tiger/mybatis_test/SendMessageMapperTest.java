@@ -62,4 +62,10 @@ public class SendMessageMapperTest extends BaseMapperTest<SendMessageMapper>{
         List<MessageEntity> list = super.getMapper().findMessageByUserId(10);
         System.out.println(list);
     }
+
+    @Test
+    public void findMessageByGetterIdAndMessageIdTest(){
+        MessageEntity messageEntity = super.getMapper().findMessageByGetterIdAndMessageId(10,1);
+        System.out.println(messageEntity);
+    }
 }
