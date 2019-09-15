@@ -27,6 +27,8 @@ public class MessageUserService {
 
     /**
      * 更新用户消息的状态
+     * 不能发使用此方法设置消息为已读状态，使用以下方法即可
+     *      updateMessageUserStatusToRead()
      * @param messageId 消息唯一标识
      * @param userId 用户唯一标识
      * @param status 用户消息状态
@@ -35,11 +37,36 @@ public class MessageUserService {
     @Transactional(rollbackFor = Exception.class)
     public int updateMessageUserStatus(Integer messageId, Integer userId, int status) {
         if (messageId == null || userId == null || status < 0) {
-            return CommonConstants.SUCCESS;
+            return CommonConstants.FAIL;
+        }
+        sendMessageMapper.updateSendMsgStatus(messageId, userId, status);
+        return CommonConstants.SUCCESS;
+    }
+
+    /**
+     * 更新用户消息状态为已读，由于涉及到+1操作，所以需要加锁
+     * @param messageId
+     * @param userId
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public synchronized int updateMessageUserStatusToRead(Integer messageId, Integer userId) {
+        MessageEntity messageEntity = new MessageEntity();
+        messageEntity = messageEntity.selectById(messageId);
+        if (messageEntity.getNumber() == messageEntity.getReadNum()) {
+            return CommonConstants.FAIL;
+        }
+        // 此处需先把user_message 状态查出来，在更新，更新完后消息才能加一操作
+        sendMessageMapper.updateSendMsgStatus(messageId, userId, CommonConstants.USER_MESSAGE_STATUS_READER);
+
+        if (messageEntity.getNumber() > messageEntity.getReadNum()) {
+            messageEntity.setReadNum(messageEntity.getReadNum() + 1);
+            messageEntity.updateById();
         }
 
-        sendMessageMapper.updateSendMsgStatus(messageId, userId, status);
-        return CommonConstants.FAIL;
+        return CommonConstants.SUCCESS;
+
+
     }
 
     /**
