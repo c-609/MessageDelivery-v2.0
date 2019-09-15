@@ -28,4 +28,8 @@ public interface SendMessageMapper {
 
     //通过用户id查找已读消息
     List<MessageEntity> findMessageByUserId(@Param("userId") Integer userId);
+
+    //通过接收者id和消息id获取单条消息
+    MessageEntity findMessageByGetterIdAndMessageId(@Param("getterId") Integer getterId,@Param("messageId") Integer messageId);
+
 }
