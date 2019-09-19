@@ -18,6 +18,7 @@ public class UserDeptRoleService {
     @Autowired
     private UserService userService;
 
+
     public List<IdentityEntity> findByUid(Integer uid) {
         if (uid == null) {
             return null;
@@ -36,6 +37,18 @@ public class UserDeptRoleService {
             }
         }
         return 0;
+    }
+
+    /**
+     * 通过部门id查用户
+     * @param deptId
+     * @return
+     */
+    public List<UserInfoEntity> findUserInfoByDeptId(Integer deptId) {
+        if (deptId == null) {
+            return null;
+        }
+        return userService.findUserListByDeptId(deptId);
     }
 
 }

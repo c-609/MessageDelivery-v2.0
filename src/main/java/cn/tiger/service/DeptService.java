@@ -100,7 +100,7 @@ public class DeptService {
      */
     public List<DeptTree> getTree() {
         List<DeptEntity> deptEntityList = deptMapper.findAll();
-        return getDeptTree(deptEntityList, -1); // 父节点为-1
+        return getDeptTree(deptEntityList, 0); // 父节点为-1
     }
 
     /**

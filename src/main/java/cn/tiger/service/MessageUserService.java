@@ -51,11 +51,6 @@ public class MessageUserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public synchronized int updateMessageUserStatusToRead(Integer messageId, Integer userId) {
-        MessageEntity messageEntity = new MessageEntity();
-        messageEntity = messageEntity.selectById(messageId);
-        if (messageEntity.getNumber() == messageEntity.getReadNum()) {
-            return CommonConstants.FAIL;
-        }
         // 取出用户消息对应的状态
         Integer status = sendMessageMapper.findStatusByMessageUser(userId, messageId);
         if (status == null) {
@@ -63,6 +58,13 @@ public class MessageUserService {
         }
         // 如果已读，则返回成功即可
         if (status.intValue() == CommonConstants.USER_MESSAGE_STATUS_READER) {
+            return CommonConstants.SUCCESS;
+        }
+
+        MessageEntity messageEntity = new MessageEntity();
+        messageEntity = messageEntity.selectById(messageId);
+        // 如果已经读满了，则直接返回
+        if (messageEntity.getNumber() == messageEntity.getReadNum()) {
             return CommonConstants.SUCCESS;
         }
         // 此处需先把user_message 状态查出来，在更新，更新完后消息才能加一操作

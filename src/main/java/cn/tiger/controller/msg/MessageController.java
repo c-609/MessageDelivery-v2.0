@@ -25,7 +25,6 @@ public class MessageController {
     private MessageService messageService;
     /**
      * 编辑状态为本地删除删除
-     * TODO 如果该用户  消息未读，则编辑后该消息的人数是否需要+1
      * 0 : 未读 1：已读 2：本地删除
      * @param messageId
      * @param userId

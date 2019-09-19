@@ -27,7 +27,7 @@ public class ManageDeptController {
     @RequestMapping("/tree/root")
     public R findTreeRoot() {
         DeptEntity deptEntity = new DeptEntity();
-        deptEntity.setParentId(-1);
+        deptEntity.setParentId(0);
         // 默认
         return new R(deptEntity.selectOne(Wrappers.lambdaQuery()));
     }
