@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tiger.mapper.NoticeMapper">
+
+    <resultMap id="NoticeMap" type="cn.tiger.entity.NoticeEntity">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sender_id" property="senderId" jdbcType="INTEGER"/>
+        <result column="getter_id" property="getterId" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="group_id" property="groupId" jdbcType="INTEGER"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+
+</mapper>
