@@ -97,11 +97,30 @@ public class ManageGroupController {
         return R.builder().msg("退出成功").build();
     }
 
+    /**
+     * 获取用户加入的群组
+     * @param userId
+     * @return
+     */
     @RequestMapping("get_join_group")
     public R getJoinedGroup(Integer userId) {
         List<GroupEntity> groupEntityList = messageUserService.findGroupByUserId(userId);
         if (groupEntityList == null || groupEntityList.size() <= 0) {
             return R.builder().msg("没有加入任何群组").build();
+        }
+        return new R(groupEntityList);
+    }
+
+    /**
+     * 获取用户创建的群组
+     * @param userId
+     * @return
+     */
+    @GetMapping("creator")
+    public R getCreatorGroup(Integer userId) {
+        List<GroupEntity> groupEntityList = userGroupService.findGroupByCreatorGroupUser(userId);
+        if (groupEntityList == null || groupEntityList.size() <= 0) {
+            return R.builder().msg("没有创建任何群组").build();
         }
         return new R(groupEntityList);
     }

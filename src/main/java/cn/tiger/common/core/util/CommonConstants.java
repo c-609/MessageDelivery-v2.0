@@ -89,6 +89,23 @@ public interface CommonConstants {
         Integer USER_MESSAGE_STATUS_DEL = 2;
 
         /**
+         * 通知状态 邀请
+         */
+        Integer NOTIFICATION_TYPE_INVITE = 0;
+        /**
+         * 通知状态 退出
+         */
+        Integer NOTIFICATION_TYPE_QUIT = 0;
+        /**
+         * 通知状态 同意
+         */
+        Integer NOTIFICATION_TYPE_AGREE = 0;
+        /**
+         * 通知状态 拒绝
+         */
+        Integer NOTIFICATION_TYPE_REFUSE = 0;
+
+        /**
          * 消息状态 正常
          */
         Integer MESSAGE_STATUS_NORMAL = 0;

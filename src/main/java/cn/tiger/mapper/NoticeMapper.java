@@ -1,13 +1,15 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.NoticeEntity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.omg.CosNaming.NamingContextPackage.NotEmpty;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface NoticeMapper {
+public interface NoticeMapper extends BaseMapper<NoticeEntity> {
     //添加群通知
     int addGroupNotification(NoticeEntity noticeEntity);
 

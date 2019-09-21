@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * 用户控制类
  * create by yifeng
  */
-@Controller
+@RestController
 @RequestMapping("/manage/user/")
 public class ManageUserController {
     @Autowired
@@ -31,7 +32,6 @@ public class ManageUserController {
      * @return
      */
     @GetMapping("/get_user_information")
-    @ResponseBody
     public R getUserInfo(Integer userId) {
         if (userId == null) {
             return R.builder().msg("用户id不能为空").code(CommonConstants.PARAMETER_ERROR).build();
@@ -44,7 +44,7 @@ public class ManageUserController {
     }
 
     /**
-     * 获取用户信息，
+     * 通过部门id获取用户信息列表
      * @param deptId 部门唯一标识
      * @return
      */

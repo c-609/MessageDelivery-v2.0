@@ -3,6 +3,7 @@ package cn.tiger.service;
 import cn.tiger.common.core.util.CommonConstants;
 import cn.tiger.entity.GroupEntity;
 import cn.tiger.entity.UserInfoEntity;
+import cn.tiger.mapper.GroupMapper;
 import cn.tiger.mapper.UserGroupMapper;
 import cn.tiger.vo.GroupVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class UserGroupService {
     private UserGroupMapper userGroupMapper;
     @Autowired
     private UserService userService;
+    @Autowired
+    private GroupMapper groupMapper;
 
     /**
      * 在群组中添加成员
@@ -69,6 +72,18 @@ public class UserGroupService {
         if (groupId != null)
             return userGroupMapper.findUserByGroupId(groupId);
         return null;
+    }
+
+    /**
+     * 通过创建者id获取组列表
+     * @param userId 用户唯一标识
+     * @return
+     */
+    public List<GroupEntity> findGroupByCreatorGroupUser(Integer userId) {
+        if (userId == null || userId.intValue() <= 0) {
+            return null;
+        }
+        return groupMapper.findGroupByUserId(userId);
     }
 
     /**

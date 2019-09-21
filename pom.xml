@@ -78,6 +78,12 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.1.0</version>
         </dependency>
+        <!-- mybatis pager -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.0</version>
+        </dependency>
 
 <!--        <dependency>-->
 <!--            <groupId>com.baomidou</groupId>-->
