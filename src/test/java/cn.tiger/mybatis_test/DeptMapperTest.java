@@ -18,7 +18,7 @@ public class DeptMapperTest extends BaseMapperTest<DeptMapper>{
     public void addDeptTest(){
         DeptEntity deptEntity = new DeptEntity();
         deptEntity.setName("dept-test1");
-        deptEntity.setParentId(-1);
+        deptEntity.setParentId(0);
         deptEntity.setOperatorId(2);
 
         int i = super.getMapper().addDept(deptEntity);
@@ -63,7 +63,7 @@ public class DeptMapperTest extends BaseMapperTest<DeptMapper>{
 
     @Test
     public void findDeptByDeptParentIdTest(){
-        List<DeptEntity> list = super.getMapper().findDeptByDeptParentId(2);
+        List<DeptEntity> list = super.getMapper().findDeptByDeptParentId(10);
         System.out.println(list);
     }
 

@@ -23,6 +23,10 @@
     DELETE FROM t_user_dept_role WHERE id = #{id}
     </delete>
 
+    <delete id="deleteIdentityByUserId">
+        DELETE FROM t_user_dept_role WHERE user_id = #{userId}
+    </delete>
+
     <update id="updateIdentity">
     UPDATE t_user_dept_role
     SET dept_role_id = #{identityId}

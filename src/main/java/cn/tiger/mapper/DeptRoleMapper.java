@@ -1,13 +1,15 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.DeptEntity;
+import cn.tiger.entity.DeptRoleEntity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface DeptRoleMapper {
+public interface DeptRoleMapper extends BaseMapper<DeptRoleEntity> {
     //添加部门与角色对应关系
     //可同时为一个部门添加多个角色对应关系
     int addDeptRole(@Param("deptId") Integer deptId,@Param("roleIds") Integer[] roleIds);

@@ -41,11 +41,11 @@ public class UserInfoMapperTest extends BaseMapperTest<UserInfoMapper>{
         List<UserInfoEntity> list = super.getMapper().findUserInfoByName("my");
         System.out.println(list);
     }
-    @Test
-    public void findAll(){
-        List<UserInfoEntity> list = super.getMapper().findAll();
-        System.out.println(list);
-    }
+//    @Test
+//    public void findAll(){
+//        List<UserInfoEntity> list = super.getMapper().findAll();
+//        System.out.println(list);
+//    }
 
     @Test
     public void findUserByDeptIdTest(){

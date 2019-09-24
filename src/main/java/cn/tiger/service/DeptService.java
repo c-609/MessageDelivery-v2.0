@@ -40,6 +40,15 @@ public class DeptService {
         return deptEntityList;
     }
 
+    /**
+     * 根据部门id查找部门实体
+     * @param deptId 部门唯一标识
+     * @return
+     */
+    public DeptEntity findById(Integer deptId) {
+        return deptMapper.findDeptById(deptId);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public Integer addDept(DeptEntity dept) {
         if (dept != null) {
@@ -58,6 +67,13 @@ public class DeptService {
         deptMapper.updateDept(dept);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void save(DeptEntity dept) {
+        deptMapper.addDept(dept);
+    }
+
+
+
     /**
      * 获取部门的子部门
      * @param deptId
@@ -67,7 +83,8 @@ public class DeptService {
         if (deptId <= 0) {
             return null;
         }
-        return deptMapper.findDeptByDeptParentId(deptId);
+        List<DeptEntity> deptEntityList = deptMapper.findDeptByDeptParentId(deptId);
+        return deptEntityList;
     }
 
     /**
@@ -94,12 +111,16 @@ public class DeptService {
         return findTreeByUserDept(findByUid(userId), userId);
     }
 
+    public List<DeptEntity> findAll() {
+        return deptMapper.findAll();
+    }
+
     /**
      *
      * @return 整颗部门树
      */
     public List<DeptTree> getTree() {
-        List<DeptEntity> deptEntityList = deptMapper.findAll();
+        List<DeptEntity> deptEntityList = findAll();
         return getDeptTree(deptEntityList, 0); // 父节点为-1
     }
 

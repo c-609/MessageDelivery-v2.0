@@ -27,6 +27,10 @@
     <update id="updateUser">
         UPDATE t_user_info
         <set>
+            <!-- 当其他属性都为空时不至于报错 -->
+            <if test="userId != null and userId != '' ">
+                user_id = #{userId},
+            </if>
             <if test="name != null and name != '' ">
                 name = #{name},
             </if>

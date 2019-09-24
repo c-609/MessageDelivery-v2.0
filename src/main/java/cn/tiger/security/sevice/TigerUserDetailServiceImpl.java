@@ -51,7 +51,7 @@ public class TigerUserDetailServiceImpl implements UserDetailsService {
                 = AuthorityUtils.createAuthorityList(roleList.toArray(new String[0]));
 
         // 构造security用户
-        return new TigerUser(userInfo.getUserId(), identityEntityList, accountEntity.getUserName(), accountEntity.getPassword(),
+        return new TigerUser(userInfo.getUserId(), identityEntityList, accountEntity.getUsername(), accountEntity.getPassword(),
                 true, true, true, true, authorities);
     }
 

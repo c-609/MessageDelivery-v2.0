@@ -9,6 +9,8 @@
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="level_name" jdbcType="VARCHAR" property="levelName"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="operator_id" jdbcType="INTEGER" property="operatorId"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>

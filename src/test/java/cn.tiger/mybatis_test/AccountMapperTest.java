@@ -15,7 +15,7 @@ public class AccountMapperTest extends BaseMapperTest<AccountMapper>{
     @Test
     public void addAccountTest(){
         AccountEntity accountEntity = new AccountEntity();
-        accountEntity.setUserName("test1");
+        accountEntity.setUsername("test1");
         accountEntity.setPassword("123456");
         int i = super.getMapper().addAccount(accountEntity);
         System.out.println(i);
@@ -31,7 +31,7 @@ public class AccountMapperTest extends BaseMapperTest<AccountMapper>{
     public void updateAccountTest(){
         AccountEntity accountEntity = new AccountEntity();
         accountEntity.setId(2);
-        accountEntity.setUserName("test1-update");
+        accountEntity.setUsername("test1-update");
         int i = super.getMapper().updateAccount(accountEntity);
         System.out.println(i);
     }

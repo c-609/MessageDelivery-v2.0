@@ -11,6 +11,7 @@
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="group_id" property="groupId" jdbcType="INTEGER"/>
         <result column="time" property="time" jdbcType="TIMESTAMP"/>
+        <result column="invit_reason" property="inviteReason" jdbcType="VARCHAR"/>
     </resultMap>
 
 

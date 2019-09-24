@@ -1,6 +1,7 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.UserInfoEntity;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public interface UserInfoMapper {
     List<UserInfoEntity> findUserInfoByName(@Param("name") String name);
 
     //查找所有
-    List<UserInfoEntity> findAll();
+    Page<List<UserInfoEntity>> findAll(Page page);
 
     /**
      * 通过部门id查用户

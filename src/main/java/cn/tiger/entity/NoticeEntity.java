@@ -25,6 +25,8 @@ public class NoticeEntity extends Model<NoticeEntity> {
      */
     @NotNull
     private Integer getterId;
+
+    private String inviteReason;
     /**
      * 通知类型：
      *         1：邀请通知

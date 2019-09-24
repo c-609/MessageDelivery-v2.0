@@ -6,7 +6,7 @@
 
     <resultMap id="AccountMap" type="cn.tiger.entity.AccountEntity">
         <id column="id" property="id" jdbcType="INTEGER"/>
-        <result column="username" property="userName" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
         <result column="password" property="password" jdbcType="VARCHAR"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
@@ -14,7 +14,7 @@
 
     <insert id="addAccount" parameterType="cn.tiger.entity.AccountEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO t_account (username,password)
-        VALUE (#{userName},#{password})
+        VALUE (#{username},#{password})
     </insert>
 
     <delete id="deleteAccountById">
@@ -24,8 +24,12 @@
     <update id="updateAccount" parameterType="cn.tiger.entity.AccountEntity">
         UPDATE t_account
         <set>
-            <if test="userName != null and userName != '' ">
-                username = #{userName},
+            <!-- 当其他属性都为空时不至于报错 -->
+            <if test="id != null and id != '' ">
+                id = #{id},
+            </if>
+            <if test="username != null and username != '' ">
+                username = #{username},
             </if>
             <if test="password != null and password != '' ">
                 password = #{password},

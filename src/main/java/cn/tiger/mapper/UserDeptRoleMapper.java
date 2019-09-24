@@ -1,13 +1,15 @@
 package cn.tiger.mapper;
 
 import cn.tiger.entity.IdentityEntity;
+import cn.tiger.entity.UserDeptRoleEntity;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserDeptRoleMapper {
+public interface UserDeptRoleMapper extends BaseMapper<UserDeptRoleEntity> {
 
 
     /**
@@ -25,6 +27,12 @@ public interface UserDeptRoleMapper {
      */
     int deleteIdentityById(@Param("id") Integer id);
 
+    /**
+     * 删除用户身份
+     * @param userId 用户部门角色关联表的用户唯一标识
+     * @return
+     */
+    int deleteIdentityByUserId(@Param("userId") Integer userId);
 
 
     /**
