@@ -102,9 +102,8 @@ public class ManageDeptController {
         if (roleId == null || roleId.intValue() <= 0 || deptId == null || deptId.intValue() <= 0) {
             return R.builder().msg("参数不正确").code(CommonConstants.PARAMETER_ERROR).build();
         }
-        DeptRoleEntity selectOne =
-                userDeptRoleService.findDeptRoleExist(roleId, deptId);
-        if (selectOne == null)
+        boolean exist = userDeptRoleService.findDeptRoleExist(roleId, deptId);
+        if (!exist)
             return R.builder().msg("不存在所选择的职位，请刷新").code(CommonConstants.PARAMETER_ERROR).build();
         return new R(userDeptRoleService.findAuthOrganization(roleId, deptId));
     }

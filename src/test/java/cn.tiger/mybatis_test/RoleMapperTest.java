@@ -40,11 +40,11 @@ public class RoleMapperTest extends BaseMapperTest<RoleMapper>{
         System.out.println(i);
     }
 
-    @Test
-    public void findAllTest(){
-        List<RoleEntity> list = super.getMapper().findAll();
-        System.out.println(list);
-    }
+//    @Test
+//    public void findAllTest(){
+//        List<RoleEntity> list = super.getMapper().findAll();
+//        System.out.println(list);
+//    }
 
     @Test
     public void findRoleByDeptIdTest(){

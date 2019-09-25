@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 用户-部门角色服务类
  * create by yifeng
  */
 @Service
@@ -34,7 +35,7 @@ public class UserDeptRoleService {
 
     /**
      * 获取用户可发送消息的顶级部门
-     * TODO 未考虑该顶级部门为当前用户的子部门的情况
+     * TODO 未考虑该顶级部门为当前用户的子部门的情况（估计不会出现这样的需求-怕是要打脸=- -）
      * @param roleId
      * @param deptId
      * @return
@@ -115,13 +116,26 @@ public class UserDeptRoleService {
      * 查询部门角色是否存在
      * @return 部门角色关系
      */
-    public DeptRoleEntity findDeptRoleExist(Integer roleId, Integer deptId) {
+    public boolean findDeptRoleExist(Integer roleId, Integer deptId) {
         DeptRoleEntity deptRoleEntity = new DeptRoleEntity();
         deptRoleEntity.setRoleId(roleId);
         deptRoleEntity.setDeptId(deptId);
-        DeptRoleEntity selectOne = deptRoleEntity.selectOne(Wrappers.lambdaQuery(deptRoleEntity));
-        return selectOne;
+        int count = deptRoleEntity.selectCount(Wrappers.lambdaQuery(deptRoleEntity));
+        if (count > 0)
+            return Boolean.TRUE;
+//        DeptRoleEntity selectOne = deptRoleEntity.selectOne(Wrappers.lambdaQuery(deptRoleEntity));
+        return Boolean.FALSE;
     }
+
+    /**
+     * 查询部门角色是否存在
+     * @return 部门角色关系
+     */
+//    public DeptRoleEntity findDeptRoleExist(Integer roleId) {
+//        DeptRoleEntity deptRoleEntity = new DeptRoleEntity();
+//        deptRoleEntity.setRoleId(roleId);
+//        return findDeptRoleExist(roleId, null);
+//    }
 
     /**
      * 增加用户-部门角色关系

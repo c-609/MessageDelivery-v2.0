@@ -17,6 +17,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -80,9 +82,8 @@ public class ManageUserController {
         }
         for (int i = 0; i < identityEntityList.size(); i++) {
             IdentityEntity identityEntity = identityEntityList.get(i);
-            DeptRoleEntity selectOne =
-                    userDeptRoleService.findDeptRoleExist(identityEntity.getRoleId(), identityEntity.getDeptId());
-            if (selectOne == null)
+            boolean exist = userDeptRoleService.findDeptRoleExist(identityEntity.getRoleId(), identityEntity.getDeptId());
+            if (!exist)
                 return R.builder().msg("不存在所选择的职位，请刷新").code(CommonConstants.PARAMETER_ERROR).build();
         }
         boolean result = userService.addUser(userDto);
@@ -97,7 +98,6 @@ public class ManageUserController {
         userService.delete(userId);
         return R.builder().msg("删除成功").build();
     }
-
 
     /**
      * 通过部门id获取用户信息列表
@@ -115,12 +115,13 @@ public class ManageUserController {
 
     /**
      * 获取部门下所有用户
-     * @param deptId
+     * @param deptIds 部门列表
      * @return
      */
-    @GetMapping("/dept_under/{deptId}")
-    public R getAllByDeptId(@PathVariable Integer deptId) {
-        Set<UserInfoEntity> userInfoEntityList = userDeptRoleService.queryAllUserUnderTheDept(deptId);
+    @GetMapping("/dept_under")
+    public R getAllByDeptId(Integer[] deptIds) {
+        Set<UserInfoEntity> userInfoEntityList = new HashSet<>();
+        Arrays.stream(deptIds).forEach(id -> userInfoEntityList.addAll(userDeptRoleService.queryAllUserUnderTheDept(id)));
         if (userInfoEntityList == null || userInfoEntityList.size() <= 0) {
             return R.builder().msg("该部门下没有用户").build();
         }
