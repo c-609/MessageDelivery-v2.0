@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -83,14 +84,19 @@ public class MessageService {
      * @return
      */
     public List<MessageEntity> filterExisted(List<MessageEntity> messageEntityList, Integer[] existedMessageIds) {
+        List<MessageEntity> result = new ArrayList<>(messageEntityList.size());
         for (int i = 0; i < messageEntityList.size(); i++) {
+            boolean whetherToAdd = true; // 是否添加标识
             for (int j = 0; j < existedMessageIds.length; j++) {
-                if (messageEntityList.get(i).getId().equals(existedMessageIds[j])) {
-                    messageEntityList.remove(i);
+                if (messageEntityList.get(i).getId().equals(existedMessageIds[j])) { // 若本地列表中已经存在，则不添加
+                    whetherToAdd = false;
                 }
             }
+            if (whetherToAdd) {
+                result.add(messageEntityList.get(i));
+            }
         }
-        return messageEntityList;
+        return result;
     }
 
 

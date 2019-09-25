@@ -104,6 +104,11 @@ public class MessageUserService {
         return result;
     }
 
+    /**
+     * 获取未读消息
+     * @param userId 用户唯一标识
+     * @return
+     */
     public List<MessageEntity> getNewArrivalMessage(Integer userId) {
         if (userId.intValue() <= 0) {
             return null;
