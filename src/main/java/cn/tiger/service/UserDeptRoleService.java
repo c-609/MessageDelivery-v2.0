@@ -185,17 +185,15 @@ public class UserDeptRoleService {
      * @return
      */
     private <T extends TreeNode> Set<UserInfoEntity> traversingTree(List<T> deptTreeList) {
-        Set<UserInfoEntity> resultSet = null;
+        Set<UserInfoEntity> resultSet = new HashSet<>();
         for (int i = 0; i < deptTreeList.size(); i++) {
             T deptTree = deptTreeList.get(i);
-            resultSet = new HashSet(findUserInfoByDeptId(deptTree.getId()));
-            if (deptTree.getChildren() == null || deptTree.getChildren().size() <= 0) {
-                return resultSet;
+            resultSet.addAll(findUserInfoByDeptId(deptTree.getId()));
+            // 如果有儿子节点，则继续递归儿子节点
+            if (deptTree.getChildren() != null || deptTree.getChildren().size() > 0) {
+                resultSet.addAll(traversingTree(deptTree.getChildren()));
             }
-            resultSet.addAll(traversingTree(deptTree.getChildren()));
-            return resultSet;
         }
-
         return resultSet;
     }
 
