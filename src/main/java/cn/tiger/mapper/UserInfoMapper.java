@@ -27,6 +27,7 @@ public interface UserInfoMapper {
     //查找所有
     Page<List<UserInfoEntity>> findAll(Page page);
 
+//    List<UserInfoEntity> findAll();
     /**
      * 通过部门id查用户
      * @param deptId 部门id

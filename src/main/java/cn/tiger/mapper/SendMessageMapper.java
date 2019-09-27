@@ -29,6 +29,12 @@ public interface SendMessageMapper {
     //通过用户id查找已读消息
     List<MessageEntity> findMessageByUserId(@Param("userId") Integer userId);
 
+    //查看置顶消息
+    List<MessageEntity> findMessageByGetterIdAndTop(@Param("userId") Integer userId);
+
+    //修改消息置顶状态
+    int updateIsTop(@Param("msgId") Integer msgId,@Param("userId") Integer userId,@Param("top") int top);
+
     //通过接收者id和消息id获取单条消息
     MessageEntity findMessageByGetterIdAndMessageId(@Param("getterId") Integer getterId,@Param("messageId") Integer messageId);
 
