@@ -86,6 +86,13 @@ public class UserGroupService {
         return groupMapper.findGroupByUserId(userId);
     }
 
+    public List<UserInfoEntity> findUserListByGroupId(Integer groupId) {
+        if (groupId == null || groupId.intValue() <= 0) {
+            return null;
+        }
+        return userGroupMapper.findUserByGroupId(groupId);
+    }
+
     /**
      * 通过组id获取该组的Vo
      * @param groupId

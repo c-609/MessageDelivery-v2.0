@@ -9,8 +9,10 @@ import cn.tiger.entity.DeptRoleEntity;
 import cn.tiger.entity.IdentityEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.UserDeptRoleMapper;
+import cn.tiger.mapper.UserGroupMapper;
 import cn.tiger.service.DeptService;
 import cn.tiger.service.UserDeptRoleService;
+import cn.tiger.service.UserGroupService;
 import cn.tiger.service.UserService;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -35,6 +37,8 @@ public class ManageUserController {
     private UserDeptRoleService userDeptRoleService;
     @Autowired
     private DeptService deptService;
+    @Autowired
+    private UserGroupService userGroupService;
 
     @GetMapping("/page")
     public R getUserPage(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -128,6 +132,24 @@ public class ManageUserController {
         }
         return new R(userInfoEntityList);
     }
+
+
+
+    /**
+     * 获取部门下所有用户
+     * @param groupIds 群组列表
+     * @return
+     */
+    @GetMapping("/group_under")
+    public R getAllByGroupId(Integer[] groupIds) {
+        Set<UserInfoEntity> userInfoEntityList = new HashSet<>();
+        Arrays.stream(groupIds).forEach(id -> userInfoEntityList.addAll(userGroupService.findUserListByGroupId(id)));
+        if (userInfoEntityList == null || userInfoEntityList.size() <= 0) {
+            return R.builder().msg("该群组下没有用户").build();
+        }
+        return new R(userInfoEntityList);
+    }
+
 
 
 
