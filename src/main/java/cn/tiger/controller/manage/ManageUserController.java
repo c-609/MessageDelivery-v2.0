@@ -37,8 +37,9 @@ public class ManageUserController {
     private DeptService deptService;
 
     @GetMapping("/page")
-    public R getUserPage(Page page) {
-        return new R(userService.getUserPage(page));
+    public R getUserPage(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        return new R(userService.getUserPage(pageNum, pageSize));
     }
 
     /**

@@ -25,7 +25,7 @@ public interface UserInfoMapper {
     List<UserInfoEntity> findUserInfoByName(@Param("name") String name);
 
     //查找所有
-    Page<List<UserInfoEntity>> findAll(Page page);
+    List<UserInfoEntity> findAll();
 
 //    List<UserInfoEntity> findAll();
     /**

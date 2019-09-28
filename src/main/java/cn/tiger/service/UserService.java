@@ -3,11 +3,11 @@ package cn.tiger.service;
 import cn.tiger.dto.UserDto;
 import cn.tiger.entity.AccountEntity;
 import cn.tiger.entity.IdentityEntity;
-import cn.tiger.entity.UserDeptRoleEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.AccountMapper;
 import cn.tiger.mapper.UserInfoMapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,14 @@ public class UserService {
     @Autowired
     private UserDeptRoleService userDeptRoleService;
 
-    public Page getUserPage(Page page) {
-        return userInfoMapper.findAll(page);
+//    public Page getUserPage(Page page) {
+//        return userInfoMapper.findAll(page);
+//    }
 
+    public PageInfo<UserInfoEntity> getUserPage(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum,pageSize);
+        PageInfo<UserInfoEntity> pageInfo = new PageInfo<>(userInfoMapper.findAll());
+        return pageInfo;
     }
 
     public UserInfoEntity getIdByUserInfo(Integer id) {
