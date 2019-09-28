@@ -73,4 +73,16 @@ public class SendMessageMapperTest extends BaseMapperTest<SendMessageMapper>{
     public void findStatusByMessageUser() {
         System.out.println(super.getMapper().findStatusByMessageUser(2, 1));
     }
+
+    @Test
+    public void findMessageByGetterIdAndTopTest(){
+        List<MessageEntity> messageEntities = super.getMapper().findMessageByGetterIdAndTop(2);
+        System.out.println(messageEntities);
+    }
+
+    @Test
+    public void updateTopTest(){
+        int i = super.getMapper().updateIsTop(8,2,1);
+        System.out.println(i);
+    }
 }
