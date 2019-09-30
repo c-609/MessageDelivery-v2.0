@@ -1,6 +1,8 @@
 package cn.tiger.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -14,6 +16,7 @@ import java.util.Date;
 @Data
 @TableName("t_message")
 public class MessageEntity extends Model<MessageEntity> {
+    @TableId(type = IdType.AUTO)
     private Integer id; //消息id 自增
     @NotNull
     private Integer senderId; //发送者id

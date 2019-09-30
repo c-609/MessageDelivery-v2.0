@@ -1,9 +1,13 @@
 package cn.tiger.service;
 
+import cn.tiger.common.core.util.R;
 import cn.tiger.entity.DeptEntity;
 import cn.tiger.entity.MessageEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.MessageMapper;
+import cn.tiger.mapper.SendMessageMapper;
+import cn.tiger.vo.MessageVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +29,8 @@ public class MessageService {
     private MessageUserService messageUserService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private SendMessageMapper sendMessageMapper;
 
     /**
      * 发送消息
@@ -97,6 +103,22 @@ public class MessageService {
             }
         }
         return result;
+    }
+
+    public List<MessageVo> conversionToVo(List<MessageEntity> messageEntityList, Integer userId) {
+        if (messageEntityList == null || messageEntityList.size() <= 0) {
+            return null;
+        }
+        List<MessageVo> messageVoList = new ArrayList<>(messageEntityList.size());
+        for (int i = 0; i < messageEntityList.size(); i++) {
+            MessageVo messageVo = new MessageVo();
+            MessageEntity messageEntity = messageEntityList.get(i);
+            BeanUtils.copyProperties(messageEntity, messageVo);
+            int topState = sendMessageMapper.findStatusByMessageUser(userId, messageEntity.getId());
+            messageVo.setTop(topState);
+            messageVoList.add(messageVo);
+        }
+        return messageVoList;
     }
 
 

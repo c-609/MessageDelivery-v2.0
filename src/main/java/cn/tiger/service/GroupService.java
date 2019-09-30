@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * create by yifeng
@@ -21,19 +24,21 @@ public class GroupService {
     /**
      * TODO 暫時使用发送用户id的方式，优化点
      * @param groupEntity
-     * @param createUid
      * @param uids
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public boolean create(GroupEntity groupEntity,Integer createUid, Integer[] uids) {
+    public boolean create(GroupEntity groupEntity, Integer[] uids) {
+        // 过滤掉创建者id
+        List<Integer> uidsList = Arrays.stream(uids).filter(id -> id != groupEntity.getCreateUserId()).collect(Collectors.toList());
         groupEntity.setCreateTime(new Date());
-        int groupId = groupMapper.addGroup(groupEntity); // 返回刚刚创建的组id
+        groupMapper.addGroup(groupEntity); // 刚刚创建的组id将会填充到groupEntity中
+        int groupId = groupEntity.getId();
         if (groupId <= 0) {
             return Boolean.FALSE;
         }
         if (uids != null && uids.length > 0){
-            userGroupService.addUserToGroup(groupId, uids);
+            userGroupService.addUserToGroup(groupId, uidsList.toArray(new Integer[0]));
         }
         return Boolean.TRUE;
     }

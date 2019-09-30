@@ -149,5 +149,9 @@ public class MessageUserService {
         return Boolean.FALSE;
     }
 
+    public int setTopState(Integer messageId, Integer getterId, Integer top) {
+        return sendMessageMapper.updateIsTop(messageId, getterId, top);
+    }
+
 
 }

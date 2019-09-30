@@ -9,10 +9,7 @@ import cn.tiger.service.UserGroupService;
 import cn.tiger.vo.GroupVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,9 +27,9 @@ public class ManageGroupController {
     @Autowired
     private GroupService groupService;
 
-    @RequestMapping("/create")
+    @PostMapping("/create")
     public R create(@Validated GroupEntity groupEntity, Integer[] userIds) {
-        boolean result = groupService.create(groupEntity, groupEntity.getCreateUserId(), userIds);
+        boolean result = groupService.create(groupEntity, userIds);
         if (!result)
             return R.builder().msg("创建失败").build();
         return R.builder().msg("创建成功").build();

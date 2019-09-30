@@ -7,6 +7,7 @@ import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.mapper.SendMessageMapper;
 import cn.tiger.service.MessageService;
 import cn.tiger.service.MessageUserService;
+import cn.tiger.vo.MessageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,10 +75,11 @@ public class MessageController {
         if (existedMessageIds != null && existedMessageIds.length > 0) {
             messageEntityList = messageService.filterExisted(messageEntityList, existedMessageIds);
         }
-        if (messageEntityList == null || messageEntityList.size() <= 0) {
+        List<MessageVo> messageVoList = messageService.conversionToVo(messageEntityList, userId);
+        if (messageVoList == null || messageVoList.size() <= 0) {
             return R.builder().msg("没有未读消息").build();
         }
-        return new R(messageEntityList);
+        return new R(messageVoList);
     }
 
     /**
@@ -118,7 +120,19 @@ public class MessageController {
         return new R(userInfoEntityList);
     }
 
-
+    /**
+     * 设置置顶状态
+     * @param messageId 消息唯一标识
+     * @return
+     */
+    @PutMapping("/top")
+    public R getNotReadUser(Integer messageId, Integer userId, Integer top) {
+        if (messageId == null || userId == null || top == null) {
+            return R.builder().msg("参数错误").code(CommonConstants.PARAMETER_ERROR).build();
+        }
+        messageUserService.setTopState(messageId, userId, top);
+        return new R();
+    }
 
 
 }

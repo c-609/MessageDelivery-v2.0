@@ -1,5 +1,7 @@
 package cn.tiger.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -16,6 +18,7 @@ import java.util.Date;
 @TableName("t_group")
 @EqualsAndHashCode(callSuper = true)
 public class GroupEntity extends Model<GroupEntity> {
+    @TableId(type = IdType.AUTO)
     private Integer id; //id 自增
     @NotNull
     private String name; //群组名称
