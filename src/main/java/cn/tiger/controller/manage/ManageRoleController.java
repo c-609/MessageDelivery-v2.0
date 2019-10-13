@@ -2,15 +2,20 @@ package cn.tiger.controller.manage;
 
 import cn.tiger.common.core.util.CommonConstants;
 import cn.tiger.common.core.util.R;
+import cn.tiger.entity.DeptRoleEntity;
+import cn.tiger.entity.IdentityEntity;
 import cn.tiger.entity.RoleEntity;
 import cn.tiger.service.RoleService;
 import cn.tiger.service.UserDeptRoleService;
+import cn.tiger.vo.DeptRoleVo;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 角色控制类
@@ -46,7 +51,7 @@ public class ManageRoleController {
     }
 
     /**
-     * 增加用户
+     * 增加角色
      * @param roleEntity
      * @return
      */
@@ -56,7 +61,7 @@ public class ManageRoleController {
     }
 
     /**
-     * 更新用户
+     * 更新角色
      * @param roleEntity
      * @return
      */
@@ -82,6 +87,19 @@ public class ManageRoleController {
             return R.builder().msg("该角色与部门关联，请先删除").build();
         roleService.delete(roleId);
         return new R(true);
+    }
+
+    /**
+     * 获取部门角色绑定对象
+     * @return
+     */
+    @GetMapping("/dept")
+    public R getIdentity() {
+        List<DeptRoleVo> deptRoleVoList = userDeptRoleService.findAllToVo();
+        if (deptRoleVoList == null || deptRoleVoList.size() <= 0) {
+            return R.builder().msg("没有职位可供选择").build();
+        }
+        return new R(deptRoleVoList);
     }
 
 }

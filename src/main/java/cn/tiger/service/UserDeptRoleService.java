@@ -5,6 +5,7 @@ import cn.tiger.dto.TreeNode;
 import cn.tiger.entity.*;
 import cn.tiger.mapper.DeptRoleMapper;
 import cn.tiger.mapper.UserDeptRoleMapper;
+import cn.tiger.vo.DeptRoleVo;
 import cn.tiger.vo.TreeUtil;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class UserDeptRoleService {
         }
         for (IdentityEntity entity : identityEntityList) {
             if (entity.getDeptId() == deptId && entity.getRoleId() == roleId) {
-                return entity.getId();
+                return entity.getDeptRoleId();
             }
         }
         return 0;
@@ -195,6 +196,28 @@ public class UserDeptRoleService {
             }
         }
         return resultSet;
+    }
+
+    public List<DeptRoleVo> findAllToVo() {
+        DeptRoleEntity deptRoleEntity = new DeptRoleEntity();
+        List<DeptRoleEntity> deptRoleEntityList = deptRoleEntity.selectList(Wrappers.lambdaQuery());
+        List<DeptRoleVo> deptRoleVoList = new ArrayList<>(deptRoleEntityList.size());
+        for (int i = 0; i < deptRoleEntityList.size(); i++) {
+            deptRoleEntity = deptRoleEntityList.get(i);
+            DeptRoleVo deptRoleVo = new DeptRoleVo();
+
+            DeptEntity deptEntity = new DeptEntity();
+            deptEntity.setId(deptRoleEntity.getDeptId());
+
+            RoleEntity roleEntity = new RoleEntity();
+            roleEntity.setId(deptRoleEntity.getRoleId());
+
+            deptRoleVo.setDeptRoleId(deptRoleEntity.getId());
+            deptRoleVo.setDeptEntity(deptEntity.selectById());
+            deptRoleVo.setRoleEntity(roleEntity.selectById());
+            deptRoleVoList.add(deptRoleVo);
+        }
+        return deptRoleVoList;
     }
 
 }

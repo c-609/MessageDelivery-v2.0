@@ -4,12 +4,6 @@ server:
     max-http-header-size: 8192
 
 spring:
-  rabbitmq:
-    host: 118.89.190.234
-    username: guest
-    password: guest
-
-
   application:
     name: MessageDelivery-v2.0
   datasource:

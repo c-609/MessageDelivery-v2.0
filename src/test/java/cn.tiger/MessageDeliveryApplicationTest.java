@@ -1,21 +1,13 @@
 package cn.tiger;
 
-import cn.tiger.entity.MessageEntity;
-import cn.tiger.entity.ReadMessage;
-import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class MessageDeliveryApplicationTest {
-    @Autowired
+    /*@Autowired
     private RabbitTemplate rabbitTemplate;
     @Test
     public void contextLoads(){
@@ -34,5 +26,5 @@ public class MessageDeliveryApplicationTest {
         Object readMessage = rabbitTemplate.receiveAndConvert("readMessage");
         System.out.println(readMessage.getClass());
         System.out.println(readMessage);
-    }
+    }*/
 }

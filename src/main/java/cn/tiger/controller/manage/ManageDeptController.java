@@ -3,7 +3,6 @@ package cn.tiger.controller.manage;
 import cn.tiger.common.core.util.CommonConstants;
 import cn.tiger.common.core.util.R;
 import cn.tiger.entity.DeptEntity;
-import cn.tiger.entity.DeptRoleEntity;
 import cn.tiger.entity.UserInfoEntity;
 import cn.tiger.service.DeptService;
 import cn.tiger.service.UserDeptRoleService;
@@ -110,7 +109,7 @@ public class ManageDeptController {
 
     /**
      * 获取部门的子节点
-     * @param id
+     * @param id 部门唯一标识
      * @return
      */
     @GetMapping("/child/{id}")

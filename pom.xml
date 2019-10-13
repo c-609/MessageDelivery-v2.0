@@ -41,10 +41,10 @@
 
     <dependencies>
         <!-- rabbitMq-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-amqp</artifactId>-->
+        <!--</dependency>-->
 
         <!-- 该依赖包含了大量基本依赖 -->
         <dependency>

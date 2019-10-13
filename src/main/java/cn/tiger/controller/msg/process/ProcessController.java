@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * 接发消息控制类
  * create by yifeng
@@ -39,12 +42,14 @@ public class ProcessController {
         if (userIds == null || userIds.length <= 0 || roleId == null || deptId == null) {
             return R.builder().msg("数据不正确，发送失败").code(CommonConstants.PARAMETER_ERROR).build();
         }
+        Integer[] fileterUserIds = Arrays.stream(userIds).
+                filter(id -> id != messageEntity.getSenderId()).collect(Collectors.toList()).toArray(new Integer[0]);
         // 获取用户选择的身份关联id
         int userDeptRoleId = userDeptRoleService.findUserDeptRole(deptId, roleId, messageEntity.getSenderId());
         if (userDeptRoleId <= 0) {
             return R.builder().msg("请选择正确的身份").code(CommonConstants.PARAMETER_ERROR).build();
         }
-        boolean result = messageService.send(messageEntity, userIds, userDeptRoleId);
+        boolean result = messageService.send(messageEntity, fileterUserIds, userDeptRoleId);
         if (!result) {
             return R.builder().msg("发送失败").build();
         }

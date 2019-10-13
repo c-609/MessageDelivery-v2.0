@@ -46,12 +46,19 @@ public class MessageController {
     /**
      * 编辑消息状态为已读
      * @param messageId
-     * @param userId
+     * @param userIds 用户唯一标识数组
      * @return
      */
     @PostMapping("/edit_state_read")
-    public R editStateRead(Integer messageId, Integer userId) {
-        int result = messageUserService.updateMessageUserStatusToRead(messageId, userId);
+    public R editStateRead(Integer messageId, Integer[] userIds) {
+        int result = CommonConstants.FAIL;
+        for (Integer userId : userIds) {
+            int mark = messageUserService.updateMessageUserStatusToRead(messageId, userId);
+            if (CommonConstants.FAIL.equals(result)) { // 只要有一个用户的未读状态标记为已读成功 即可返回成功
+                result = mark;
+            }
+        }
+
         if (result == CommonConstants.FAIL) {
             return R.builder().msg("参数错误").code(CommonConstants.PARAMETER_ERROR).build();
         }
