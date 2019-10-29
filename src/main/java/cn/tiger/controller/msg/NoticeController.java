@@ -78,14 +78,16 @@ public class NoticeController {
     /**
      * 修改群通知,修改群通知类型
      * @param id
-     * @param type
+     * @param type 类型 1：邀请通知   2：同意 3：退出 4:拒绝
+     * @param getter_id 接收着唯一标识号
      * @return
      */
     @PutMapping
-    public R updateNotice(Integer id, Integer type) {
+    public R updateNotice(Integer id, Integer type, Integer getter_id) {
         NoticeEntity noticeEntity = new NoticeEntity();
         noticeEntity.setId(id);
         noticeEntity.setType(type);
+        noticeEntity.setGetterId(getter_id);
         noticeService.update(noticeEntity);
         return new R();
     }

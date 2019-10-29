@@ -29,10 +29,10 @@ public class ManageGroupController {
 
     @PostMapping("/create")
     public R create(@Validated GroupEntity groupEntity, Integer[] userIds) {
-        boolean result = groupService.create(groupEntity, userIds);
-        if (!result)
+        Integer groupId = groupService.create(groupEntity, userIds);
+        if (groupId == null)
             return R.builder().msg("创建失败").build();
-        return R.builder().msg("创建成功").build();
+        return R.builder().msg("创建成功").data(groupId).build();
     }
 
     /**

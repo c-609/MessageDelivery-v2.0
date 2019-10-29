@@ -89,6 +89,11 @@ public interface CommonConstants {
         Integer USER_MESSAGE_STATUS_DEL = 2;
 
         /**
+         * 用户消息状态 删除
+         */
+        Integer USER_STATUS_DEL = 2;
+
+        /**
          * 通知状态 邀请
          */
         Integer NOTIFICATION_TYPE_INVITE = 0;

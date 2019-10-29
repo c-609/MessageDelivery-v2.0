@@ -1,5 +1,6 @@
 package cn.tiger.service;
 
+import cn.tiger.common.core.util.CommonConstants;
 import cn.tiger.dto.UserDto;
 import cn.tiger.entity.AccountEntity;
 import cn.tiger.entity.IdentityEntity;
@@ -84,9 +85,12 @@ public class UserService {
      */
     @Transactional(rollbackFor = Exception.class)
     public boolean delete(Integer userId) {
-        userDeptRoleService.delIdentityForUser(userId);
-        userInfoMapper.deleteUserById(userId);
-        accountMapper.deleteAccountById(userId);
+//        userDeptRoleService.delIdentityForUser(userId);
+//        userInfoMapper.deleteUserById(userId);
+        AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setId(userId);
+        accountEntity.setStatus(CommonConstants.USER_STATUS_DEL);
+        accountMapper.updateAccount(accountEntity); // 使用逻辑删除
         return Boolean.TRUE;
     }
 

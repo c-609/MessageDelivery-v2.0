@@ -28,19 +28,19 @@ public class GroupService {
      * @return
      */
     @Transactional(rollbackFor = Exception.class)
-    public boolean create(GroupEntity groupEntity, Integer[] uids) {
+    public Integer create(GroupEntity groupEntity, Integer[] uids) {
         // 过滤掉创建者id
         List<Integer> uidsList = Arrays.stream(uids).filter(id -> id != groupEntity.getCreateUserId()).collect(Collectors.toList());
         groupEntity.setCreateTime(new Date());
         groupMapper.addGroup(groupEntity); // 刚刚创建的组id将会填充到groupEntity中
         int groupId = groupEntity.getId();
         if (groupId <= 0) {
-            return Boolean.FALSE;
+            return null;
         }
         if (uids != null && uids.length > 0){
             userGroupService.addUserToGroup(groupId, uidsList.toArray(new Integer[0]));
         }
-        return Boolean.TRUE;
+        return groupId;
     }
 
     public boolean delete(Integer groupId) {
